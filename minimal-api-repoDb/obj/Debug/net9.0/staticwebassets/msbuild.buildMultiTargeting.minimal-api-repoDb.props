@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\minimal-api-repoDb.props" />
+</Project>
