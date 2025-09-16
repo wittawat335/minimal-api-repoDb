@@ -1,8 +1,9 @@
 using FastEndpoints;
+using FastEndpoints.Swagger;
 
 var bld = WebApplication.CreateBuilder();
-bld.Services.AddFastEndpoints();
+bld.Services.AddFastEndpoints().SwaggerDocument(); 
 
 var app = bld.Build();
-app.UseFastEndpoints();
+app.UseFastEndpoints().UseSwaggerGen(); 
 app.Run();
