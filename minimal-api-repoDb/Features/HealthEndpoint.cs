@@ -12,7 +12,7 @@ public class HealthEndpoint : Endpoint<HealthRequest, HealthResponse>
 
     public override async Task<HealthResponse> ExecuteAsync(HealthRequest req, CancellationToken ct)
     {
-        return new HealthResponse { AllCaps = req.Check.ToUpper() };
+        return new HealthResponse { AllCaps = req.Check };
     }
 }
 
