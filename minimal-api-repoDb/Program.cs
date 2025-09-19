@@ -7,39 +7,49 @@ using Microsoft.EntityFrameworkCore;
 using minimal_api_repoDb.Data;
 using minimal_api_repoDb.Data.Respositories;
 using minimal_api_repoDb.GraphQL;
+using minimal_api_repoDb.GraphQL.Mutations;
 using minimal_api_repoDb.GraphQL.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
+
+// Repositories & GraphQL
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<EmployeeQuery>();
-//builder.Services.AddScoped<EmployeeMutation>();
+builder.Services.AddScoped<EmployeeMutation>();
 builder.Services.AddScoped<AppSchema>();
 
-builder.Services.AddFastEndpoints().SwaggerDocument();
+// FastEndpoints + Swagger
+builder.Services.AddFastEndpoints()
+                .SwaggerDocument();
 
-//GraphQL
-// register graphQL
-builder.Services.AddGraphQL().AddSystemTextJson();
+// GraphQL
+builder.Services.AddGraphQL()
+                .AddSystemTextJson();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Swagger (API Explorer)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<EntityDatabaseContext>(options 
-    => options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeDB"), 
-    sqlServerOptions => sqlServerOptions.CommandTimeout(60)), ServiceLifetime.Transient);
+// EF Core DbContext
+builder.Services.AddDbContext<EntityDatabaseContext>(
+    options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("EmployeDB"),
+        sqlServerOptions => sqlServerOptions.CommandTimeout(60)
+    ),
+    ServiceLifetime.Transient
+);
 
 var app = builder.Build();
 
+// Minimal API sample
 app.MapGet("/employees", async (EntityDatabaseContext db) =>
     await db.Employees.ToListAsync()
 );
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -48,13 +58,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//GraphQL
+// GraphQL
 app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseFastEndpoints().UseSwaggerGen();
+app.UseFastEndpoints()
+   .UseSwaggerGen();
 
 app.Run();
