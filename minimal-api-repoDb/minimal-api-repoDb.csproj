@@ -28,8 +28,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="GraphQL\Mutations\" />
-    <Folder Include="GraphQL\Queries\" />
-    <Folder Include="GraphQL\Types\" />
   </ItemGroup>
 
 </Project>

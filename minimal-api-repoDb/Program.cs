@@ -5,16 +5,19 @@ using GraphQL.Server;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using minimal_api_repoDb.Data;
+using minimal_api_repoDb.Data.Respositories;
+using minimal_api_repoDb.GraphQL;
+using minimal_api_repoDb.GraphQL.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-//builder.Services.AddScoped<EmployeeRepository>();
-//builder.Services.AddScoped<EmployeeQuery>();
+builder.Services.AddScoped<EmployeeRepository>();
+builder.Services.AddScoped<EmployeeQuery>();
 //builder.Services.AddScoped<EmployeeMutation>();
-//builder.Services.AddScoped<AppSchema>();
+builder.Services.AddScoped<AppSchema>();
 
 builder.Services.AddFastEndpoints().SwaggerDocument();
 
@@ -44,8 +47,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 //GraphQL
-//app.UseGraphQL<AppSchema>();
+app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");
 app.UseAuthorization();
 
