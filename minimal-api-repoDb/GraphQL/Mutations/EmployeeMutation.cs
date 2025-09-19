@@ -12,9 +12,9 @@ public class EmployeeMutation : ObjectGraphType
     {
         Field<EmployeeType>(
             "addEmployee",
-            "Is used to add a new employee to the database",
+            "add a new employee",
             arguments: new QueryArguments(
-                new QueryArgument<NonNullGraphType<EmployeeInputType>> { Name = "employee", Description = "Employee input parameter." }
+                new QueryArgument<NonNullGraphType<EmployeeInputType>> { Name = "employee", Description = "input parameter." }
                 ),
             resolve: context =>
             {
@@ -28,10 +28,10 @@ public class EmployeeMutation : ObjectGraphType
 
         Field<EmployeeType>(
            "updateEmployee",
-           "Is used to update a existing employee to the database",
+           "update a existing employee",
            arguments: new QueryArguments(
-               new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "id", Description = "Id of the employee that need to be updated" },
-               new QueryArgument<NonNullGraphType<EmployeeInputType>> { Name = "employee", Description = "Employee input parameter." }
+               new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "id", Description = "" },
+               new QueryArgument<NonNullGraphType<EmployeeInputType>> { Name = "employee", Description = "input parameter." }
                ),
            resolve: context =>
            {
@@ -46,12 +46,12 @@ public class EmployeeMutation : ObjectGraphType
 
         Field<EmployeeType>(
           "deleteEmployee",
-          "Is used to delete a existing employee to the database",
+          "delete a existing employee",
           arguments: new QueryArguments(
               new QueryArgument<NonNullGraphType<IdGraphType>>
               {
                   Name = "id",
-                  Description = "Id of the employee that need to be updated"
+                  Description = ""
               }
               ),
           resolve: context =>
