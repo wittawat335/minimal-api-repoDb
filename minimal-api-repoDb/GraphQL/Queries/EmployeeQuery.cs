@@ -1,4 +1,5 @@
-﻿using GraphQL.Types;
+﻿using GraphQL;
+using GraphQL.Types;
 using minimal_api_repoDb.Data.Respositories;
 using minimal_api_repoDb.GraphQL.Types;
 
@@ -13,10 +14,10 @@ public class EmployeeQuery : ObjectGraphType
             "Return all the employees",
             resolve: context => _repository.GetAllEmployees());
 
-        //Field<EmployeeType>(
-        //    "employee",
-        //    "Return a single employee by id",
-        //    new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id", Description = "Employee Id" }),
-        //    resolve: context => _repository.GetEmployeeById(context.GetArgument("id", int.MinValue)));
+        Field<EmployeeType>(
+            "employee",
+            "Return a single employee by id",
+            new QueryArguments(new QueryArgument<NonNullGraphType<IntGraphType>> { Name = "id", Description = "Employee Id" }),
+            resolve: context => _repository.GetEmployeeById(context.GetArgument("id", int.MinValue)));
     }
 }
