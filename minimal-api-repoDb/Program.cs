@@ -21,7 +21,7 @@ builder.Services.AddScoped<EmployeeQuery>();
 builder.Services.AddScoped<EmployeeMutation>();
 builder.Services.AddScoped<AppSchema>();
 
-// FastEndpoints + Swagger
+// FastEndpoints + Swagger //
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument();
 
@@ -63,8 +63,6 @@ app.UseGraphQL<AppSchema>();
 app.UseGraphQLGraphiQL("/ui/graphql");
 
 app.UseAuthorization();
-
-app.MapControllers();
 
 app.UseFastEndpoints()
    .UseSwaggerGen();
