@@ -21,7 +21,7 @@ builder.Services.AddScoped<EmployeeQuery>();
 builder.Services.AddScoped<EmployeeMutation>();
 builder.Services.AddScoped<AppSchema>();
 
-// FastEndpoints + Swagger ////
+// FastEndpoints + Swagger //////
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument();
 
