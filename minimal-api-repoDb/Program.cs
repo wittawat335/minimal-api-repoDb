@@ -2,6 +2,7 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using GraphQL.Server;
+using Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using minimal_api_repoDb.Data;
@@ -11,6 +12,8 @@ using minimal_api_repoDb.GraphQL.Mutations;
 using minimal_api_repoDb.GraphQL.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.InjectInfra();
 
 // Add services to the container
 builder.Services.AddControllers();
