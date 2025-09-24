@@ -11,7 +11,7 @@ public class DapperContext
     public DapperContext(IConfiguration configuration)
     {
         _configuration = configuration;
-        _connectionString = configuration.GetConnectionString("NorthWindDB");
+        _connectionString = configuration.GetConnectionString("EmployeDB");
     }
     public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
 
