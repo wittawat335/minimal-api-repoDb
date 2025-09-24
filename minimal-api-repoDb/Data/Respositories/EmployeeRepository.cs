@@ -7,7 +7,7 @@ public class EmployeeRepository(EntityDatabaseContext _context)
 {
     public List<Employee> GetAllEmployees()
     {
-        return [.. _context.Employees.Include(f => f.Reviews)];
+        return [.. _context.Employees];
     }
     public Employee? GetEmployeeById(int id)
     {
