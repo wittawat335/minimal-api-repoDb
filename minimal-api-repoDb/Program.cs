@@ -48,9 +48,9 @@ builder.Services.AddDbContext<EntityDatabaseContext>(
 var app = builder.Build();
 
 // Minimal API sample
-app.MapGet("/employees", async (EntityDatabaseContext db) =>
-    await db.Employees.ToListAsync()
-);
+//app.MapGet("/employees", async (EntityDatabaseContext db) =>
+//    await db.Employees.ToListAsync()
+//);
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
