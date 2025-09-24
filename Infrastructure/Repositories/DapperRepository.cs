@@ -2,6 +2,7 @@
 using Domain.DBContext;
 using Domain.Interfaces;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace Infrastructure.Repositories;
 
@@ -25,17 +26,57 @@ public class DapperRepository<T> : IDapperRepository<T> where T : class
         }
     }
 
-    public Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+    public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, Expression<Func<IQueryable<T>, IOrderedQueryable<T>>>? orderBy = null)
     {
-        throw new NotImplementedException();
+        using (var _connection = _context.CreateConnection())
+        {
+            var whereClause = ExpressionToSql.ToSql(predicate, out var parameters);
+            var sql = $"SELECT * FROM {_tableName} WHERE {whereClause}";
+
+            if (orderBy != null)
+            {
+                var orderClause = OrderByBuilder<T>.ToSql(orderBy);
+                sql += $" ORDER BY {orderClause}";
+            }
+
+            return await _connection.QueryAsync<T>(sql, parameters);
+        }
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<IQueryable<T>, IOrderedQueryable<T>>>? orderBy = null)
     {
         using (var _connection = _context.CreateConnection())
         {
             var sql = $"SELECT * FROM {_tableName}";
+
+            if (orderBy != null)
+            {
+                var orderClause = OrderByBuilder<T>.ToSql(orderBy);
+                sql += $" ORDER BY {orderClause}";
+            }
+
             return await _connection.QueryAsync<T>(sql);
+        }
+    }
+
+    public async Task<IEnumerable<TParent>> GetAllWithIncludeAsync<TParent, TChild>(string childTable, string parentKey, string childKey, Func<TParent, TChild, TParent> map, string? orderBy = null)
+    {
+        using (var _connection = _context.CreateConnection())
+        {
+            var sql = new StringBuilder();
+            sql.Append($"SELECT p.*, c.* FROM {_tableName} p ");
+            sql.Append($"INNER JOIN {childTable} c ON p.{parentKey} = c.{childKey}");
+
+            if (!string.IsNullOrEmpty(orderBy))
+                sql.Append($" ORDER BY {orderBy}");
+
+            var result = await _connection.QueryAsync<TParent, TChild, TParent>(
+                sql.ToString(),
+                map,
+                splitOn: "Id" 
+            );
+
+            return result;
         }
     }
 
