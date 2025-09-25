@@ -3,7 +3,7 @@ using Domain.Interfaces;
 using FastEndpoints;
 using Shared;
 
-namespace FastEndpointAPI.Endpoints.Employees.GetEmployees;
+namespace FastEndpointAPI.Endpoints.Employees;
 
 public class GetEmployees(IDapperRepository<Employee> _repository) : EndpointWithoutRequest
 {

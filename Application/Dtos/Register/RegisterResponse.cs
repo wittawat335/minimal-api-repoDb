@@ -1,4 +1,4 @@
-﻿namespace FastEndpointAPI.Endpoints.Register;
+﻿namespace Application.Dtos.Register;
 
 public class RegisterResponse
 {

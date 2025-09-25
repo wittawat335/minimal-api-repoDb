@@ -1,9 +1,10 @@
-﻿using FastEndpoints;
+﻿using Application.Dtos.Register;
+using FastEndpoints;
 using Shared;
 
-namespace FastEndpointAPI.Endpoints.Register;
+namespace FastEndpointAPI.Endpoints.Users;
 
-public class RegisterEndpoint : Endpoint<RegisterRequest, Response<RegisterResponse>>
+public class Register : Endpoint<RegisterRequest, Response<RegisterResponse>>
 {
     public override void Configure()
     {

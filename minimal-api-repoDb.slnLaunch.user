@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "FastEndpointAPI\\FastEndpointAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "GraphQL\\GraphQL.csproj",
+        "Action": "StartWithoutDebugging"
+      },
+      {
+        "Path": "MinimalAPI\\MinimalAPI.csproj",
+        "Action": "StartWithoutDebugging"
+      }
+    ]
+  }
+]
