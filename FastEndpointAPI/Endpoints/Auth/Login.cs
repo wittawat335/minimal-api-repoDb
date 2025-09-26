@@ -2,13 +2,13 @@
 using FastEndpoints;
 using Shared;
 
-namespace FastEndpointAPI.Endpoints.Users;
+namespace FastEndpointAPI.Endpoints.Auth;
 
-public class Register : Endpoint<RegisterRequest, Response<RegisterResponse>>
+public class Login : Endpoint<RegisterRequest, Response<RegisterResponse>>
 {
     public override void Configure()
     {
-        Post("/api/auth/register");
+        Post("/api/auth/login");
         AllowAnonymous();
     }
 
@@ -25,7 +25,6 @@ public class Register : Endpoint<RegisterRequest, Response<RegisterResponse>>
         {
             data = user,
             isSuccess = true,
-            message = "User registered successfully"
         };
 
         await Send.OkAsync(response, cancellation: ct);
