@@ -2,6 +2,7 @@ using FastEndpoints;
 using FastEndpoints.Security;
 using FastEndpoints.Swagger;
 using Infrastructure;
+using Mapster;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services
     .AddFastEndpoints()
     .AddAuthenticationJwtBearer(s => s.SigningKey = builder.Configuration["Settings:JwtSecret"])
     .AddAuthorization();
+
+builder.Services.AddMapster();
 
 var app = builder.Build();
 

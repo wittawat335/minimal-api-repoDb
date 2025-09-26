@@ -1,11 +1,12 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos.Employees;
+using Domain.Entities;
 using Domain.Interfaces;
 using FastEndpoints;
 using Shared;
 
 namespace FastEndpointAPI.Endpoints.Employees;
 
-public class GetEmployees(IDapperRepository<Employee> _repository) : EndpointWithoutRequest
+public class GetEmployees(IDapperRepository<Employee> _repository, IMapper _mapper) : EndpointWithoutRequest
 {
     public override void Configure()
     {
